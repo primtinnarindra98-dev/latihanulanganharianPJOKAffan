@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>PETUALANGAN JUARA SPORTIF - Latihan Ulangan Harian PJOK Kelas 2 SD</title>
+  <style>
+    /* ==========================================================================
+       1. VARIABEL TEMA & RESET DASAR (RAMAH ANAK, CERAH, BULAT, OFFLINE-READY)
+       ========================================================================== */
+    :root {
+      --bg-sky: #38bdf8;
+      --bg-field: #4ade80;
+      --primary-blue: #0284c7;
+      --primary-blue-dark: #0369a1;
+      --accent-yellow: #facc15;
+      --accent-yellow-dark: #eab308;
+      --accent-orange: #fb923c;
+      --accent-orange-dark: #ea580c;
+      --accent-green: #22c55e;
+      --accent-green-dark: #15803d;
+      --accent-purple: #a855f7;
+      --accent-purple-dark: #7e22ce;
+      --accent-red: #ef4444;
+      --accent-red-dark: #b91c1c;
+      --text-dark: #1e293b;
+      --text-muted: #475569;
+      --card-bg: #ffffff;
+      --font-round: 'Comic Sans MS', 'Chalkboard SE', 'Trebuchet MS', 'Segoe UI', system-ui, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      font-family: var(--font-round);
+      color: var(--text-dark);
+      background: linear-gradient(180deg, #38bdf8 0%, #bae6fd 58%, #86efac 58%, #22c55e 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* Elemen dekorasi latar melayang */
+    .bg-decorations {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .cloud {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 50px;
+      animation: floatCloud linear infinite;
+    }
+    .cloud::before, .cloud::after {
+      content: '';
+      position: absolute;
+      background: inherit;
+      border-radius: 50%;
+    }
+    .cloud-1 { width: 130px; height: 42px; top: 7%; left: -150px; animation-duration: 36s; }
+    .cloud-1::before { width: 60px; height: 60px; top: -28px; left: 20px; }
+    .cloud-1::after { width: 45px; height: 45px; top: -18px; left: 68px; }
+
+    .cloud-2 { width: 160px; height: 50px; top: 18%; left: -180px; animation-duration: 48s; animation-delay: 8s; }
+    .cloud-2::before { width: 70px; height: 70px; top: -32px; left: 26px; }
+    .cloud-2::after { width: 55px; height: 55px; top: -22px; left: 82px; }
+
+    @keyframes floatCloud {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(100vw + 220px)); }
+    }
+
+    /* ==========================================================================
+       2. LAYOUT UTAMA & HEADER AUDIO
+       ========================================================================== */
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 14px;
+    }
+
+    .top-bar {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge-brand {
+      background: #ffffff;
+      border: 3px solid var(--accent-yellow);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: var(--primary-blue-dark);
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.12);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .audio-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-mini {
+      background: #ffffff;
+      border: 3px solid var(--primary-blue);
+      border-radius: 999px;
+      padding: 7px 14px;
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.9rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--primary-blue-dark);
+      transition: transform 0.12s ease, background 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-mini:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--primary-blue-dark);
+    }
+
+    .btn-mini.off {
+      background: #f1f5f9;
+      border-color: #94a3b8;
+      color: #64748b;
+      box-shadow: 0 4px 0 #64748b;
+    }
+
+    /* ==========================================================================
+       3. KARTU LAYAR UTAMA & ANIMASI TRANSISI
+       ========================================================================== */
+    .screen-card {
+      width: 100%;
+      max-width: 920px;
+      background: var(--card-bg);
+      border-radius: 30px;
+      border: 5px solid #ffffff;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16), 0 8px 0 rgba(3, 105, 161, 0.25);
+      padding: 24px 22px;
+      animation: popIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(0.95) translateY(12px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* ==========================================================================
+       4. TOMBOL BESAR GAYA GAME ANAK (3D BUBBLE BUTTONS)
+       ========================================================================== */
+    .btn-game {
+      font-family: inherit;
+      font-weight: 900;
+      font-size: 1.25rem;
+      letter-spacing: 0.5px;
+      border: none;
+      border-radius: 22px;
+      padding: 15px 28px;
+      cursor: pointer;
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: transform 0.12s ease, filter 0.15s ease;
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-game:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-game:active {
+      transform: translateY(4px);
+    }
+
+    .btn-green {
+      background: linear-gradient(180deg, #4ade80 0%, #16a34a 100%);
+      box-shadow: 0 6px 0 #14532d;
+    }
+    .btn-green:active { box-shadow: 0 2px 0 #14532d; }
+
+    .btn-orange {
+      background: linear-gradient(180deg, #fb923c 0%, #ea580c 100%);
+      box-shadow: 0 6px 0 #9a3412;
+    }
+    .btn-orange:active { box-shadow: 0 2px 0 #9a3412; }
+
+    .btn-blue {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+      box-shadow: 0 6px 0 #075985;
+    }
+    .btn-blue:active { box-shadow: 0 2px 0 #075985; }
+
+    .btn-purple {
+      background: linear-gradient(180deg, #c084fc 0%, #7e22ce 100%);
+      box-shadow: 0 6px 0 #581c87;
+    }
+    .btn-purple:active { box-shadow: 0 2px 0 #581c87; }
+
+    /* ==========================================================================
+       5. HALAMAN PEMBUKA (WELCOME SCREEN)
+       ========================================================================== */
+    .welcome-header {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .game-title {
+      font-size: clamp(1.8rem, 4.5vw, 2.85rem);
+      font-weight: 900;
+      color: var(--primary-blue-dark);
+      line-height: 1.15;
+      text-shadow: 3px 3px 0 #fde047, 5px 5px 0 rgba(2, 132, 199, 0.25);
+      margin-bottom: 8px;
+    }
+
+    .game-subtitle {
+      display: inline-block;
+      background: linear-gradient(90deg, #facc15, #fb923c);
+      color: #1e293b;
+      font-weight: 800;
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      padding: 6px 20px;
+      border-radius: 999px;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .hero-illustration {
+      width: 100%;
+      max-width: 540px;
+      margin: 10px auto 18px;
+      background: linear-gradient(180deg, #e0f2fe 0%, #dcfce7 100%);
+      border-radius: 24px;
+      border: 3px dashed #38bdf8;
+      padding: 10px;
+      position: relative;
+    }
+
+    /* Animasi ringan pada SVG Pembuka */
+    @keyframes bounceBall {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-14px); }
+    }
+    @keyframes spinMedal {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50% { transform: rotate(8deg) scale(1.08); }
+    }
+    @keyframes twinkleStar {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.8); }
+    }
+
+    .anim-ball { animation: bounceBall 1.5s ease-in-out infinite; transform-origin: center; }
+    .anim-medal { animation: spinMedal 2.4s ease-in-out infinite; transform-origin: center; }
+    .anim-star { animation: twinkleStar 1.8s ease-in-out infinite; transform-origin: center; }
+
+    .identity-form {
+      max-width: 540px;
+      margin: 0 auto;
+      background: #f8fafc;
+      border: 3px solid #bae6fd;
+      border-radius: 22px;
+      padding: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    @media (min-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .form-group.full {
+        grid-column: span 2;
+      }
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--primary-blue-dark);
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 15px;
+      font-family: inherit;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border: 3px solid #cbd5e1;
+      border-radius: 15px;
+      outline: none;
+      color: var(--text-dark);
+      background: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-group input:focus {
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.25);
+    }
+
+    .error-banner {
+      background: #fee2e2;
+      border: 2px solid #ef4444;
+      color: #b91c1c;
+      font-weight: 800;
+      padding: 10px 14px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      text-align: center;
+      font-size: 0.98rem;
+    }
+
+    /* ==========================================================================
+       6. HALAMAN PETUNJUK (INSTRUCTIONS SCREEN)
+       ========================================================================== */
+    .guide-title {
+      text-align: center;
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      color: var(--accent-purple-dark);
+      margin-bottom: 16px;
+    }
+
+    .guide-list {
+      list-style: none;
+      max-width: 640px;
+      margin: 0 auto 22px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .guide-item {
+      background: #fefce8;
+      border: 3px solid #fde047;
+      border-radius: 18px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .guide-num {
+      min-width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--accent-orange);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.15rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 0 var(--accent-orange-dark);
+    }
+
+    /* ==========================================================================
+       7. HALAMAN KUIS INTERAKTIF (QUIZ SCREEN)
+       ========================================================================== */
+    .quiz-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .pill-counter {
+      background: var(--primary-blue);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.05rem;
+      padding: 7px 16px;
+      border-radius: 999px;
+      box-shadow: 0 3px 0 var(--primary-blue-dark);
+    }
+
+    .pill-category {
+      background: #f3e8ff;
+      color: var(--accent-purple-dark);
+      border: 2px solid #d8b4fe;
+      font-weight: 800;
+      font-size: 0.92rem;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .pill-score {
+      background: #fef08a;
+      color: #854d0e;
+      border: 2px solid #eab308;
+      font-weight: 900;
+      font-size: 1.05rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+    }
+
+    /* Progress Bar */
+    .progress-track {
+      width: 100%;
+      height: 16px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      border: 2px solid #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #facc15, #fb923c, #22c55e);
+      border-radius: 999px;
+      transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* Area Visual + Teks Soal */
+    .question-box {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      background: #f0f9ff;
+      border: 3px solid #7dd3fc;
+      border-radius: 24px;
+      padding: 16px;
+      margin-bottom: 18px;
+      align-items: center;
+    }
+
+    @media (min-width: 680px) {
+      .question-box {
+        grid-template-columns: 220px 1fr;
+      }
+    }
+
+    .question-illustration {
+      width: 100%;
+      max-width: 220px;
+      height: 165px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 3px solid #bae6fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .question-text-area {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .question-type-badge {
+      align-self: flex-start;
+      background: #ffedd5;
+      color: #c2410c;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    .question-text {
+      font-size: clamp(1.2rem, 2.8vw, 1.48rem);
+      font-weight: 800;
+      line-height: 1.4;
+      color: var(--text-dark);
+    }
+
+    .btn-tts {
+      align-self: flex-start;
+      background: #ffffff;
+      border: 3px solid var(--accent-purple);
+      color: var(--accent-purple-dark);
+      font-family: inherit;
+      font-weight: 800;
+      font-size: 0.98rem;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 0 var(--accent-purple-dark);
+      transition: transform 0.12s;
+    }
+
+    .btn-tts:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--accent-purple-dark);
+    }
+
+    /* Tombol Pilihan Jawaban */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .options-grid.tf-mode {
+      grid-template-columns: 1fr;
+    }
+    @media (min-width: 540px) {
+      .options-grid.tf-mode {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      background: #ffffff;
+      border: 3px solid #cbd5e1;
+      border-radius: 20px;
+      padding: 14px 18px;
+      font-family: inherit;
+      font-size: clamp(1.08rem, 2.3vw, 1.25rem);
+      font-weight: 800;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 5px 0 #cbd5e1;
+      transition: transform 0.12s, background 0.2s, border-color 0.2s;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      background: #f0f9ff;
+      border-color: var(--primary-blue);
+      box-shadow: 0 5px 0 var(--primary-blue);
+      transform: translateY(-2px);
+    }
+
+    .option-btn:active:not(:disabled) {
+      transform: translateY(3px);
+      box-shadow: 0 2px 0 var(--primary-blue);
+    }
+
+    .option-btn:disabled {
+      cursor: default;
+    }
+
+    .option-letter {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: var(--primary-blue);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    /* Status Pilihan Setelah Diklik */
+    .option-btn.correct {
+      background: #dcfce7 !important;
+      border-color: #16a34a !important;
+      box-shadow: 0 5px 0 #15803d !important;
+      color: #14532d !important;
+      animation: pulseWin 0.45s ease;
+    }
+    .option-btn.correct .option-letter {
+      background: #16a34a;
+    }
+
+    .option-btn.wrong {
+      background: #fee2e2 !important;
+      border-color: #dc2626 !important;
+      box-shadow: 0 5px 0 #991b1b !important;
+      color: #7f1d1d !important;
+      animation: shakeWrong 0.4s ease;
+    }
+    .option-btn.wrong .option-letter {
+      background: #dc2626;
+    }
+
+    @keyframes pulseWin {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes shakeWrong {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-5px); }
+    }
+
+    /* ==========================================================================
+       8. PANEL PEMBAHASAN & UMPAN BALIK JAWABAN
+       ========================================================================== */
+    .feedback-panel {
+      margin-top: 18px;
+      border-radius: 22px;
+      padding: 18px;
+      animation: popIn 0.3s ease;
+    }
+
+    .feedback-panel.is-correct {
+      background: linear-gradient(135deg, #dcfce7 0%, #fef9c3 100%);
+      border: 4px solid #22c55e;
+    }
+
+    .feedback-panel.is-wrong {
+      background: linear-gradient(135deg, #ffedd5 0%, #fef3c7 100%);
+      border: 4px solid #fb923c;
+    }
+
+    .feedback-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .feedback-badge-icon {
+      font-size: 2.3rem;
+      animation: spinMedal 1.2s ease infinite;
+    }
+
+    .feedback-title {
+      font-size: clamp(1.3rem, 3vw, 1.65rem);
+      font-weight: 900;
+    }
+
+    .is-correct .feedback-title { color: #15803d; }
+    .is-wrong .feedback-title { color: #c2410c; }
+
+    .feedback-explanation {
+      background: rgba(255, 255, 255, 0.88);
+      border-radius: 16px;
+      padding: 12px 15px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .feedback-motivation {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--primary-blue-dark);
+      margin-bottom: 14px;
+    }
+
+    .feedback-actions {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* ==========================================================================
+       9. HALAMAN HASIL AKHIR (RESULT SCREEN)
+       ========================================================================== */
+    .result-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .predikat-banner {
+      display: inline-block;
+      background: linear-gradient(90deg, #facc15, #fb923c, #f43f5e);
+      color: #ffffff;
+      font-size: clamp(1.45rem, 3.8vw, 2.2rem);
+      font-weight: 900;
+      padding: 10px 28px;
+      border-radius: 999px;
+      box-shadow: 0 6px 0 rgba(0, 0, 0, 0.15);
+      text-shadow: 0 2px 0 rgba(0, 0, 0, 0.25);
+      margin: 8px 0;
+    }
+
+    .student-summary-card {
+      background: #f0f9ff;
+      border: 3px solid #7dd3fc;
+      border-radius: 20px;
+      padding: 14px 18px;
+      text-align: center;
+      margin-bottom: 16px;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .stat-box {
+      background: #ffffff;
+      border: 3px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 14px 10px;
+      text-align: center;
+      box-shadow: 0 4px 0 #e2e8f0;
+    }
+
+    .stat-box.highlight {
+      background: #fefce8;
+      border-color: #facc15;
+      box-shadow: 0 4px 0 #eab308;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: var(--primary-blue-dark);
+    }
+
+    .result-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    /* ==========================================================================
+       10. SERTIFIKAT PENGHARGAAN DIGITAL & MODE CETAK PDF
+       ========================================================================== */
+    .certificate-wrapper {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 3px dashed #cbd5e1;
+    }
+
+    .certificate-frame {
+      position: relative;
+      background: linear-gradient(135deg, #fffbeb 0%, #ffffff 50%, #f0f9ff 100%);
+      border: 10px solid #f59e0b;
+      outline: 5px solid #0284c7;
+      border-radius: 24px;
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    .cert-corner {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      opacity: 0.9;
+    }
+    .cert-tl { top: 8px; left: 8px; }
+    .cert-tr { top: 8px; right: 8px; }
+    .cert-bl { bottom: 8px; left: 8px; }
+    .cert-br { bottom: 8px; right: 8px; }
+
+    .cert-heading {
+      font-size: clamp(1.5rem, 4vw, 2.35rem);
+      font-weight: 900;
+      color: #b45309;
+      letter-spacing: 1px;
+      text-shadow: 2px 2px 0 #fde047;
+      margin-bottom: 4px;
+    }
+
+    .cert-sub {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #0369a1;
+      margin-bottom: 14px;
+    }
+
+    .cert-student-name {
+      display: inline-block;
+      font-size: clamp(1.4rem, 3.6vw, 2.1rem);
+      font-weight: 900;
+      color: #1e293b;
+      border-bottom: 4px dashed #f59e0b;
+      padding: 4px 24px;
+      margin: 6px 0 10px;
+    }
+
+    .cert-details {
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: #334155;
+      line-height: 1.6;
+      max-width: 620px;
+      margin: 0 auto 14px;
+    }
+
+    .cert-badges-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .cert-pill {
+      background: #ffffff;
+      border: 2px solid #38bdf8;
+      border-radius: 14px;
+      padding: 8px 16px;
+      font-weight: 800;
+      font-size: 0.98rem;
+      color: #0f172a;
+    }
+
+    .cert-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      max-width: 600px;
+      margin: 18px auto 0;
+      padding-top: 10px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #475569;
+    }
+
+    .cert-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    /* Canvas Konfeti Fullscreen */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Aturan Cetak Sertifikat (Print / Save as PDF) */
+    @media print {
+      body {
+        background: #ffffff !important;
+      }
+      .bg-decorations,
+      .top-bar,
+      .result-header,
+      .student-summary-card,
+      .stats-grid,
+      .result-buttons,
+      .cert-actions,
+      #confetti-canvas {
+        display: none !important;
+      }
+      .app-wrapper {
+        padding: 0 !important;
+        min-height: auto !important;
+      }
+      .screen-card {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+      .certificate-wrapper {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+        border-top: none !important;
+      }
+      .certificate-frame {
+        box-shadow: none !important;
+        page-break-inside: avoid;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Kanvas Animasi Konfeti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Dekorasi Awan Bergerak -->
+  <div class="bg-decorations" aria-hidden="true">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+  </div>
+
+  <div class="app-wrapper">
+    <!-- Bar Atas: Identitas Mini & Kontrol Audio -->
+    <header class="top-bar">
+      <div class="badge-brand">
+        <span>🏆</span>
+        <span>PJOK KELAS 2 SD</span>
+      </div>
+      <div class="audio-controls">
+        <button type="button" id="btn-toggle-music" class="btn-mini" title="Nyalakan/Matikan Musik Latar">
+          🎵 Musik: ON
+        </button>
+        <button type="button" id="btn-toggle-sfx" class="btn-mini" title="Nyalakan/Matikan Efek Suara">
+          🔊 Suara: ON
+        </button>
+      </div>
+    </header>
+
+    <!-- ======================================================================
+         LAYAR 1: HALAMAN PEMBUKA
+         ====================================================================== -->
+    <main id="screen-welcome" class="screen-card">
+      <div class="welcome-header">
+        <h1 class="game-title">PETUALANGAN JUARA SPORTIF</h1>
+        <p class="game-subtitle">Latihan Ulangan Harian PJOK Kelas 2 SD</p>
+      </div>
+
+      <!-- Ilustrasi SVG Kartun Olahraga Anak SD -->
+      <div class="hero-illustration" aria-hidden="true">
+        <svg viewBox="0 0 520 190" width="100%" height="auto">
+          <!-- Matahari Ceria -->
+          <circle cx="52" cy="40" r="22" fill="#facc15" />
+          <g stroke="#f59e0b" stroke-width="4" stroke-linecap="round">
+            <line x1="52" y1="8" x2="52" y2="14" />
+            <line x1="52" y1="66" x2="52" y2="72" />
+            <line x1="20" y1="40" x2="26" y2="40" />
+            <line x1="78" y1="40" x2="84" y2="40" />
+          </g>
+
+          <!-- Bintang Berkilau -->
+          <polygon class="anim-star" points="145,22 150,34 163,34 153,42 157,54 145,46 133,54 137,42 127,34 140,34" fill="#facc15" stroke="#eab308" stroke-width="2" />
+          <polygon class="anim-star" style="animation-delay:0.6s" points="385,20 390,31 402,31 392,38 396,49 385,42 374,49 378,38 368,31 380,31" fill="#fb923c" stroke="#ea580c" stroke-width="2" />
+
+          <!-- Medali Berputar -->
+          <g class="anim-medal" transform="translate(465, 45)">
+            <polygon points="-12,-28 0,-6 12,-28" fill="#ef4444" />
+            <circle cx="0" cy="4" r="18" fill="#facc15" stroke="#ca8a04" stroke-width="3" />
+            <text x="0" y="10" text-anchor="middle" font-size="16" font-weight="bold" fill="#854d0e">1</text>
+          </g>
+
+          <!-- Lapangan Rumput -->
+          <rect x="10" y="148" width="500" height="32" rx="16" fill="#22c55e" />
+          <line x1="30" y1="162" x2="490" y2="162" stroke="#86efac" stroke-width="3" stroke-dasharray="10 8" />
+
+          <!-- Karakter Anak Laki-laki (Kiri) -->
+          <g transform="translate(155, 65)">
+            <!-- Kaki -->
+            <rect x="-14" y="58" width="10" height="26" rx="5" fill="#fde68a" />
+            <rect x="4" y="58" width="10" height="26" rx="5" fill="#fde68a" />
+            <ellipse cx="-9" cy="84" rx="9" ry="5" fill="#0284c7" />
+            <ellipse cx="9" cy="84" rx="9" ry="5" fill="#0284c7" />
+            <!-- Kaos Olahraga Biru -->
+            <rect x="-20" y="24" width="40" height="38" rx="12" fill="#0284c7" />
+            <text x="0" y="48" text-anchor="middle" font-size="14" font-weight="bold" fill="#fde047">2A</text>
+            <!-- Tangan Ceria -->
+            <line x1="-20" y1="32" x2="-36" y2="16" stroke="#fde68a" stroke-width="8" stroke-linecap="round" />
+            <line x1="20" y1="32" x2="36" y2="20" stroke="#fde68a" stroke-width="8" stroke-linecap="round" />
+            <!-- Kepala -->
+            <circle cx="0" cy="4" r="21" fill="#fde68a" />
+            <path d="M-21,2 Q-18,-22 0,-20 Q18,-22 21,2 Q10,-8 0,-6 Q-10,-8 -21,2 Z" fill="#1e293b" />
+            <circle cx="-7" cy="2" r="2.8" fill="#1e293b" />
+            <circle cx="7" cy="2" r="2.8" fill="#1e293b" />
+            <path d="M-7,10 Q0,17 7,10" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" />
+          </g>
+
+          <!-- Bola Sepak Memantul di Tengah -->
+          <g class="anim-ball" transform="translate(258, 122)">
+            <circle cx="0" cy="0" r="20" fill="#ffffff" stroke="#1e293b" stroke-width="3" />
+            <polygon points="0,-9 8,-3 5,7 -5,7 -8,-3" fill="#1e293b" />
+          </g>
+
+          <!-- Karakter Anak Perempuan Berhijab/Kuncir Ceria (Kanan) -->
+          <g transform="translate(355, 65)">
+            <!-- Kaki -->
+            <rect x="-14" y="58" width="10" height="26" rx="5" fill="#fde68a" />
+            <rect x="4" y="58" width="10" height="26" rx="5" fill="#fde68a" />
+            <ellipse cx="-9" cy="84" rx="9" ry="5" fill="#ea580c" />
+            <ellipse cx="9" cy="84" rx="9" ry="5" fill="#ea580c" />
+            <!-- Kaos Olahraga Oranye -->
+            <rect x="-20" y="24" width="40" height="38" rx="12" fill="#f97316" />
+            <text x="0" y="48" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">2B</text>
+            <!-- Tangan Tos/Semangat -->
+            <line x1="-20" y1="32" x2="-36" y2="20" stroke="#fde68a" stroke-width="8" stroke-linecap="round" />
+            <line x1="20" y1="32" x2="36" y2="14" stroke="#fde68a" stroke-width="8" stroke-linecap="round" />
+            <!-- Kuncir Rambut -->
+            <circle cx="-22" cy="-6" r="8" fill="#1e293b" />
+            <circle cx="22" cy="-6" r="8" fill="#1e293b" />
+            <!-- Kepala -->
+            <circle cx="0" cy="4" r="21" fill="#fde68a" />
+            <path d="M-21,2 Q0,-24 21,2 Q10,-6 -10,-6 Z" fill="#1e293b" />
+            <circle cx="-7" cy="2" r="2.8" fill="#1e293b" />
+            <circle cx="7" cy="2" r="2.8" fill="#1e293b" />
+            <path d="M-7,10 Q0,17 7,10" fill="none" stroke="#dc2626" stroke-width="3" stroke-linecap="round" />
+          </g>
+
+          <!-- Piala Emas di Pojok Kiri Bawah -->
+          <g transform="translate(65, 118)">
+            <path d="M-14,-16 L14,-16 L10,6 L-10,6 Z" fill="#facc15" stroke="#ca8a04" stroke-width="2.5" />
+            <rect x="-4" y="6" width="8" height="10" fill="#ca8a04" />
+            <rect x="-12" y="16" width="24" height="7" rx="3" fill="#78350f" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Form Identitas Murid -->
+      <form id="identity-form" class="identity-form" novalidate>
+        <div id="form-error" class="error-banner hidden">
+          Yuk isi Nama Lengkap, Kelas, dan Nama Sekolah dulu ya! 😊
+        </div>
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="input-name">🧒 Nama Lengkap Murid:</label>
+            <input type="text" id="input-name" placeholder="Contoh: Budi Santoso" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="input-class">🏫 Kelas:</label>
+            <input type="text" id="input-class" placeholder="Contoh: 2A" autocomplete="off" required />
+          </div>
+          <div class="form-group">
+            <label for="input-school">🎒 Nama Sekolah:</label>
+            <input type="text" id="input-school" placeholder="Contoh: SDN Merdeka 01" autocomplete="off" required />
+          </div>
+        </div>
+        <div style="text-align: center;">
+          <button type="submit" id="btn-start-game" class="btn-game btn-green" style="width: 100%; max-width: 340px;">
+            🚀 MULAI BERMAIN
+          </button>
+        </div>
+      </form>
+    </main>
+
+    <!-- ======================================================================
+         LAYAR 2: HALAMAN PETUNJUK
+         ====================================================================== -->
+    <section id="screen-guide" class="screen-card hidden">
+      <h2 class="guide-title">📋 PETUNJUK BERMAIN</h2>
+      <ul class="guide-list">
+        <li class="guide-item">
+          <span class="guide-num">1</span>
+          <span>Bacalah soal dengan teliti. Kamu juga bisa menekan tombol <strong>🔊 Bacakan Soal</strong>.</span>
+        </li>
+        <li class="guide-item">
+          <span class="guide-num">2</span>
+          <span>Pilih jawaban yang paling tepat dengan menekan tombol pilihan.</span>
+        </li>
+        <li class="guide-item">
+          <span class="guide-num">3</span>
+          <span>Kerjakan semua <strong>30 soal</strong> sampai selesai.</span>
+        </li>
+        <li class="guide-item">
+          <span class="guide-num">4</span>
+          <span>Setiap jawaban benar mendapatkan <strong>10 poin</strong>.</span>
+        </li>
+        <li class="guide-item">
+          <span class="guide-num">5</span>
+          <span>Jika jawaban salah, akan muncul pembahasan yang ramah untuk belajar bersama.</span>
+        </li>
+        <li class="guide-item">
+          <span class="guide-num">6</span>
+          <span>Kumpulkan poin sebanyak-banyaknya untuk menjadi <strong>JUARA SPORTIF! 🏆</strong></span>
+        </li>
+      </ul>
+      <div style="text-align: center; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+        <button type="button" id="btn-back-welcome" class="btn-game btn-blue">
+          ⬅️ KEMBALI
+        </button>
+        <button type="button" id="btn-start-quiz" class="btn-game btn-orange">
+          🏅 MULAI KERJAKAN SOAL!
+        </button>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         LAYAR 3: HALAMAN SOAL INTERAKTIF
+         ====================================================================== -->
+    <section id="screen-quiz" class="screen-card hidden">
+      <div class="quiz-top-meta">
+        <span id="quiz-counter" class="pill-counter">Soal 1 dari 30</span>
+        <span id="quiz-category" class="pill-category">Fair Play (Sportif)</span>
+        <span id="quiz-score" class="pill-score">⭐ Poin: 0</span>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="30" aria-valuenow="1">
+        <div id="quiz-progress-fill" class="progress-fill"></div>
+      </div>
+
+      <!-- Kotak Ilustrasi & Pertanyaan -->
+      <div class="question-box">
+        <div id="question-illustration" class="question-illustration" aria-hidden="true"></div>
+        <div class="question-text-area">
+          <span id="question-type-badge" class="question-type-badge">Pilihan Ganda</span>
+          <p id="question-text" class="question-text">Memuat soal...</p>
+          <button type="button" id="btn-read-aloud" class="btn-tts">
+            🔊 Bacakan Soal & Pilihan
+          </button>
+        </div>
+      </div>
+
+      <!-- Pilihan Jawaban -->
+      <div id="options-container" class="options-grid"></div>
+
+      <!-- Panel Pembahasan (Muncul setelah memilih jawaban) -->
+      <div id="feedback-panel" class="feedback-panel hidden">
+        <div class="feedback-header">
+          <span id="feedback-icon" class="feedback-badge-icon">🏆</span>
+          <h3 id="feedback-title" class="feedback-title">HEBAT! JAWABANMU BENAR!</h3>
+        </div>
+        <p id="feedback-explanation" class="feedback-explanation"></p>
+        <p id="feedback-motivation" class="feedback-motivation"></p>
+        <div class="feedback-actions">
+          <button type="button" id="btn-next-question" class="btn-game btn-green">
+            LANJUT ➡️
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         LAYAR 4: HALAMAN HASIL AKHIR & SERTIFIKAT
+         ====================================================================== -->
+    <section id="screen-result" class="screen-card hidden">
+      <div class="result-header">
+        <div style="font-size: 3rem; margin-bottom: 4px;">🏆🎉🏅</div>
+        <h2 style="font-size: 1.5rem; color: var(--primary-blue-dark);">SELAMAT, KAMU TELAH MENYELESAIKAN LATIHAN!</h2>
+        <div id="result-predikat" class="predikat-banner">JUARA SPORTIF!</div>
+      </div>
+
+      <div id="result-student-info" class="student-summary-card">
+        Nama: - | Kelas: - | Sekolah: -
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-box highlight">
+          <div class="stat-label">🎯 Nilai Akhir</div>
+          <div id="stat-final-score" class="stat-value">100</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">✅ Jawaban Benar</div>
+          <div id="stat-correct" class="stat-value" style="color: #16a34a;">30</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">❌ Jawaban Salah</div>
+          <div id="stat-wrong" class="stat-value" style="color: #dc2626;">0</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">📊 Ketuntasan</div>
+          <div id="stat-percentage" class="stat-value">100%</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">⏱️ Durasi Pengerjaan</div>
+          <div id="stat-duration" class="stat-value">02m 15d</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-label">⭐ Total Poin</div>
+          <div id="stat-points" class="stat-value" style="color: #d97706;">300</div>
+        </div>
+      </div>
+
+      <div class="result-buttons">
+        <button type="button" id="btn-replay" class="btn-game btn-orange">
+          🔄 ULANGI PERMAINAN
+        </button>
+        <button type="button" id="btn-home" class="btn-game btn-blue">
+          🏠 KEMBALI KE HALAMAN UTAMA
+        </button>
+      </div>
+
+      <!-- SERTIFIKAT PENGHARGAAN DIGITAL -->
+      <div class="certificate-wrapper">
+        <div id="certificate-area" class="certificate-frame">
+          <!-- Ornamen Sudut Sertifikat -->
+          <svg class="cert-corner cert-tl" viewBox="0 0 60 60">
+            <circle cx="26" cy="26" r="20" fill="#facc15" />
+            <text x="26" y="33" text-anchor="middle" font-size="22">🏅</text>
+          </svg>
+          <svg class="cert-corner cert-tr" viewBox="0 0 60 60">
+            <circle cx="34" cy="26" r="20" fill="#38bdf8" />
+            <text x="34" y="33" text-anchor="middle" font-size="22">🏆</text>
+          </svg>
+          <svg class="cert-corner cert-bl" viewBox="0 0 60 60">
+            <circle cx="26" cy="34" r="20" fill="#4ade80" />
+            <text x="26" y="41" text-anchor="middle" font-size="22">⚽</text>
+          </svg>
+          <svg class="cert-corner cert-br" viewBox="0 0 60 60">
+            <circle cx="34" cy="34" r="20" fill="#fb923c" />
+            <text x="34" y="41" text-anchor="middle" font-size="22">⭐</text>
+          </svg>
+
+          <h3 class="cert-heading">SERTIFIKAT JUARA SPORTIF</h3>
+          <p class="cert-sub">Diberikan dengan bangga kepada:</p>
+
+          <div id="cert-name" class="cert-student-name">NAMA MURID</div>
+
+          <p id="cert-school-class" style="font-weight: 800; color: #0369a1; margin-bottom: 10px;">
+            Kelas 2 - SD Negeri
+          </p>
+
+          <p class="cert-details">
+            Atas keberhasilannya menyelesaikan <strong>Latihan Ulangan Harian PJOK Kelas 2 SD</strong><br />
+            dengan tema:<br />
+            <span style="color: #c2410c; font-weight: 900; font-size: 1.12rem;">
+              "BERMAIN SPORTIF DAN KOMPAK BERSAMA TEMAN"
+            </span>
+          </p>
+
+          <div class="cert-badges-row">
+            <div class="cert-pill">🎯 Nilai Akhir: <span id="cert-score">100</span></div>
+            <div class="cert-pill">🏅 Predikat: <span id="cert-predikat">JUARA SPORTIF!</span></div>
+            <div class="cert-pill">📅 Tanggal: <span id="cert-date">-</span></div>
+          </div>
+
+          <div class="cert-footer">
+            <div>
+              <div>Semangat Sehat & Sportif!</div>
+              <div style="color: #16a34a;">Salam Olahraga 💪</div>
+            </div>
+            <div style="text-align: right;">
+              <div>Guru PJOK Kelas 2 SD</div>
+              <div style="margin-top: 18px; border-top: 2px solid #94a3b8; padding-top: 2px;">
+                Panitia Juara Sportif
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-actions">
+          <button type="button" id="btn-print-cert" class="btn-game btn-green">
+            🖨️ CETAK SERTIFIKAT
+          </button>
+          <button type="button" id="btn-download-pdf" class="btn-game btn-purple">
+            📄 DOWNLOAD PDF
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       1. MESIN AUDIO OFFLINE (WEB AUDIO API + TEXT-TO-SPEECH BAHASA INDONESIA)
+       ========================================================================== */
+    const SoundEngine = (() => {
+      let ctx = null;
+      let musicEnabled = true;
+      let sfxEnabled = true;
+      let bgmTimer = null;
+      let noteIndex = 0;
+
+      // Melodi ceria anak-anak (frekuensi Hz)
+      const melody = [
+        523.25, 659.25, 783.99, 659.25,
+        587.33, 698.46, 880.00, 698.46,
+        523.25, 659.25, 783.99, 1046.50,
+        880.00, 783.99, 659.25, 587.33
+      ];
+
+      function initContext() {
+        if (!ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (AudioCtx) ctx = new AudioCtx();
+        }
+        if (ctx && ctx.state === 'suspended') {
+          ctx.resume();
+        }
+      }
+
+      function playTone(freq, duration, type = 'sine', volume = 0.12, delay = 0) {
+        if (!ctx) return;
+        const now = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(volume, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + duration + 0.02);
+      }
+
+      function startBGM() {
+        initContext();
+        if (bgmTimer || !musicEnabled) return;
+        bgmTimer = setInterval(() => {
+          if (!musicEnabled) return;
+          const freq = melody[noteIndex % melody.length];
+          playTone(freq, 0.26, 'triangle', 0.045, 0);
+          noteIndex++;
+        }, 380);
+      }
+
+      function stopBGM() {
+        if (bgmTimer) {
+          clearInterval(bgmTimer);
+          bgmTimer = null;
+        }
+      }
+
+      function playClick() {
+        if (!sfxEnabled) return;
+        initContext();
+        playTone(660, 0.09, 'sine', 0.14, 0);
+        playTone(880, 0.08, 'sine', 0.10, 0.04);
+      }
+
+      function playCorrect() {
+        if (!sfxEnabled) return;
+        initContext();
+        // Nada menang ceria
+        playTone(523.25, 0.14, 'triangle', 0.18, 0);
+        playTone(659.25, 0.14, 'triangle', 0.18, 0.11);
+        playTone(783.99, 0.14, 'triangle', 0.18, 0.22);
+        playTone(1046.50, 0.35, 'triangle', 0.22, 0.33);
+
+        // Simulasi tepuk tangan lembut menggunakan filtered white noise bursts
+        if (ctx) {
+          for (let i = 0; i < 6; i++) {
+            const delay = 0.25 + i * 0.09;
+            const bufferSize = ctx.sampleRate * 0.06;
+            const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let j = 0; j < bufferSize; j++) {
+              data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.4));
+            }
+            const noise = ctx.createBufferSource();
+            noise.buffer = buffer;
+
+            const filter = ctx.createBiquadFilter();
+            filter.type = 'bandpass';
+            filter.frequency.value = 1400;
+
+            const gain = ctx.createGain();
+            gain.gain.value = 0.14;
+
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(ctx.destination);
+            noise.start(ctx.currentTime + delay);
+          }
+        }
+      }
+
+      function playWrong() {
+        if (!sfxEnabled) return;
+        initContext();
+        // Suara lembut ramah anak (tidak mengejutkan)
+        playTone(392.00, 0.22, 'sine', 0.15, 0);
+        playTone(329.63, 0.32, 'sine', 0.15, 0.18);
+      }
+
+      function playVictory() {
+        if (!sfxEnabled) return;
+        initContext();
+        const fanfare = [
+          { f: 523.25, d: 0.15, t: 0.0 },
+          { f: 523.25, d: 0.15, t: 0.16 },
+          { f: 523.25, d: 0.15, t: 0.32 },
+          { f: 659.25, d: 0.30, t: 0.48 },
+          { f: 587.33, d: 0.20, t: 0.80 },
+          { f: 659.25, d: 0.20, t: 1.02 },
+          { f: 783.99, d: 0.55, t: 1.24 }
+        ];
+        fanfare.forEach(n => playTone(n.f, n.d, 'triangle', 0.22, n.t));
+      }
+
+      function speakText(text) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'id-ID';
+        utterance.rate = 0.92;
+        utterance.pitch = 1.08;
+        window.speechSynthesis.speak(utterance);
+      }
+
+      function stopSpeech() {
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+      }
+
+      return {
+        startBGM,
+        stopBGM,
+        playClick,
+        playCorrect,
+        playWrong,
+        playVictory,
+        speakText,
+        stopSpeech,
+        toggleMusic() {
+          musicEnabled = !musicEnabled;
+          if (musicEnabled) startBGM();
+          else stopBGM();
+          return musicEnabled;
+        },
+        toggleSFX() {
+          sfxEnabled = !sfxEnabled;
+          if (!sfxEnabled) stopSpeech();
+          return sfxEnabled;
+        }
+      };
+    })();
+
+    /* ==========================================================================
+       2. ILUSTRASI SVG SESUAI TEMA SOAL (OFFLINE & FULL COLOUR)
+       ========================================================================== */
+    function getIllustrationSVG(type) {
+      const svgs = {
+        soccer: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#e0f2fe"/>
+            <rect y="92" width="180" height="38" fill="#4ade80"/>
+            <line x1="20" y1="102" x2="160" y2="102" stroke="#ffffff" stroke-width="3"/>
+            <circle cx="90" cy="76" r="22" fill="#ffffff" stroke="#1e293b" stroke-width="3"/>
+            <polygon points="90,66 99,73 95,84 85,84 81,73" fill="#1e293b"/>
+            <text x="90" y="34" text-anchor="middle" font-size="24">⚽🏃‍♂️</text>
+          </svg>`,
+        relay: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#fef9c3"/>
+            <rect y="94" width="180" height="36" fill="#86efac"/>
+            <circle cx="62" cy="48" r="14" fill="#fde68a"/>
+            <rect x="50" y="64" width="24" height="28" rx="8" fill="#0284c7"/>
+            <circle cx="118" cy="48" r="14" fill="#fde68a"/>
+            <rect x="106" y="64" width="24" height="28" rx="8" fill="#f97316"/>
+            <rect x="74" y="68" width="32" height="8" rx="4" fill="#ef4444"/>
+            <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="bold" fill="#b45309">ESTAFET KOMPAK</text>
+          </svg>`,
+        trophy: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#f3e8ff"/>
+            <path d="M68,35 L112,35 L105,72 L75,72 Z" fill="#facc15" stroke="#ca8a04" stroke-width="3"/>
+            <path d="M68,42 C52,42 52,62 72,62" fill="none" stroke="#eab308" stroke-width="4"/>
+            <path d="M112,42 C128,42 128,62 108,62" fill="none" stroke="#eab308" stroke-width="4"/>
+            <rect x="84" y="72" width="12" height="16" fill="#ca8a04"/>
+            <rect x="70" y="88" width="40" height="12" rx="4" fill="#78350f"/>
+            <text x="90" y="118" text-anchor="middle" font-size="18">⭐ 🏅 ⭐</text>
+          </svg>`,
+        handshake: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#dcfce7"/>
+            <circle cx="90" cy="60" r="36" fill="#ffffff" stroke="#22c55e" stroke-width="3"/>
+            <text x="90" y="72" text-anchor="middle" font-size="40">🤝</text>
+            <text x="90" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#15803d">SALING MENGHARGAI</text>
+          </svg>`,
+        whistle: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#ffedd5"/>
+            <circle cx="90" cy="62" r="36" fill="#ffffff" stroke="#fb923c" stroke-width="3"/>
+            <text x="90" y="74" text-anchor="middle" font-size="38">📣</text>
+            <text x="90" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#c2410c">PATUHI ATURAN</text>
+          </svg>`,
+        team: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#e0f2fe"/>
+            <circle cx="52" cy="52" r="13" fill="#fde68a"/>
+            <rect x="40" y="67" width="24" height="26" rx="8" fill="#22c55e"/>
+            <circle cx="90" cy="48" r="14" fill="#fde68a"/>
+            <rect x="77" y="64" width="26" height="29" rx="8" fill="#facc15"/>
+            <circle cx="128" cy="52" r="13" fill="#fde68a"/>
+            <rect x="116" y="67" width="24" height="26" rx="8" fill="#a855f7"/>
+            <text x="90" y="114" text-anchor="middle" font-size="14" font-weight="bold" fill="#0369a1">KERJA SAMA TIM</text>
+          </svg>`,
+        safety: `
+          <svg viewBox="0 0 180 130" width="100%" height="100%">
+            <rect width="180" height="130" rx="16" fill="#fee2e2"/>
+            <circle cx="90" cy="60" r="36" fill="#ffffff" stroke="#ef4444" stroke-width="3"/>
+            <text x="90" y="73" text-anchor="middle" font-size="38">🩹</text>
+            <text x="90" y="115" text-anchor="middle" font-size="14" font-weight="bold" fill="#b91c1c">JAGA KESELAMATAN</text>
+          </svg>`
+      };
+      return svgs[type] || svgs.soccer;
+    }
+
+    /* ==========================================================================
+       3. BANK 30 SOAL PJOK KELAS 2 SD (20 PILIHAN GANDA, 5 BENAR/SALAH, 5 SITUASI)
+       Komposisi Materi:
+       - Fair Play (Bermain Sportif)
+       - Kolaborasi (Kerja Sama)
+       ========================================================================== */
+    const QUESTION_BANK = [
+      // --- 20 SOAL PILIHAN GANDA (A, B, C) ---
+      {
+        id: 1,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'handshake',
+        question: 'Bermain sportif artinya bermain dengan sikap yang ....',
+        options: ['Jujur dan mematuhi aturan', 'Curang agar cepat menang', 'Marah saat kalah'],
+        correctIndex: 0,
+        explanation: 'Bermain sportif berarti bermain dengan jujur, mematuhi aturan permainan, dan menghargai teman.'
+      },
+      {
+        id: 2,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'soccer',
+        question: 'Saat bermain sepak bola, bola keluar lapangan. Apa yang harus kita lakukan?',
+        options: ['Mengambil bola dan melanjutkan sesuai aturan', 'Menyembunyikan bola', 'Menyalahkan teman'],
+        correctIndex: 0,
+        explanation: 'Jika bola keluar lapangan, kita harus mengambilnya dan melanjutkan permainan sesuai aturan.'
+      },
+      {
+        id: 3,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'trophy',
+        question: 'Kelompokmu kalah dalam permainan. Sikap yang baik adalah ....',
+        options: ['Menerima kekalahan dan tetap semangat', 'Marah kepada teman', 'Menyalahkan wasit'],
+        correctIndex: 0,
+        explanation: 'Dalam permainan ada yang menang dan kalah. Kalah harus diterima dengan lapang dada dan tetap semangat berlatih.'
+      },
+      {
+        id: 4,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'whistle',
+        question: 'Sebelum mulai bermain olahraga bersama, semua pemain harus mendengarkan ....',
+        options: ['Aturan permainan dari guru', 'Suara kendaraan di jalan', 'Cerita yang tidak penting'],
+        correctIndex: 0,
+        explanation: 'Mendengarkan dan mematuhi aturan permainan membuat permainan berjalan tertib, adil, dan aman.'
+      },
+      {
+        id: 5,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'handshake',
+        question: 'Teman dari kelompok lawan berhasil menang. Sikap sportif kita adalah ....',
+        options: ['Memberikan ucapan selamat', 'Mengejek pemenang', 'Pergi meninggalkan lapangan'],
+        correctIndex: 0,
+        explanation: 'Memberi ucapan selamat kepada pemenang menunjukkan bahwa kita menghargai usaha teman.'
+      },
+      {
+        id: 6,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'whistle',
+        question: 'Saat bermain petak umpet, Edo tidak sengaja menyentuh garis batas. Sikap jujur Edo adalah ....',
+        options: ['Mengakui kesalahannya dengan jujur', 'Diam saja agar tidak ketahuan', 'Menuduh teman lain'],
+        correctIndex: 0,
+        explanation: 'Anak yang sportif selalu bersikap jujur mengakui kesalahan meskipun tidak ada yang melihat.'
+      },
+      {
+        id: 7,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'trophy',
+        question: 'Jika kelompok kita menang dalam lomba, kita tidak boleh ....',
+        options: ['Mengejek teman yang kalah', 'Bersyukur kepada Tuhan', 'Berjabat tangan dengan lawan'],
+        correctIndex: 0,
+        explanation: 'Pemenang yang baik tidak boleh sombong atau mengejek teman yang kalah.'
+      },
+      {
+        id: 8,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'safety',
+        question: 'Saat berlari bersama teman di lapangan, kita harus menjaga ....',
+        options: ['Keselamatan diri dan teman', 'Kecepatan agar menabrak teman', 'Mainan di dalam tas'],
+        correctIndex: 0,
+        explanation: 'Menjaga keselamatan diri sendiri dan teman sangat penting agar tidak ada yang terjatuh atau cedera.'
+      },
+      {
+        id: 9,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'whistle',
+        question: 'Siapa yang bertugas memimpin dan menjaga aturan saat pertandingan berlangsung?',
+        options: ['Wasit atau guru PJOK', 'Penonton di pinggir lapangan', 'Penjaga kantin'],
+        correctIndex: 0,
+        explanation: 'Wasit atau guru PJOK bertugas memimpin permainan agar berjalan adil sesuai aturan.'
+      },
+      {
+        id: 10,
+        type: 'Pilihan Ganda',
+        category: 'Fair Play (Sportif)',
+        illustration: 'handshake',
+        question: 'Perbuatan curang saat bermain harus dihindari karena dapat ....',
+        options: ['Merugikan teman dan merusak permainan', 'Membuat teman semakin senang', 'Menambah banyak teman'],
+        correctIndex: 0,
+        explanation: 'Berbuat curang membuat permainan menjadi tidak adil dan dapat menyakiti hati teman.'
+      },
+      {
+        id: 11,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Kerja sama dalam permainan kelompok artinya ....',
+        options: ['Melakukan tugas bersama untuk tujuan yang sama', 'Bermain sendiri-sendiri', 'Menyuruh teman bekerja sendirian'],
+        correctIndex: 0,
+        explanation: 'Kerja sama adalah melakukan kegiatan secara bersama-sama agar tugas kelompok cepat selesai.'
+      },
+      {
+        id: 12,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'relay',
+        question: 'Saat bermain estafet, teman satu kelompok kesulitan membawa bola. Apa yang sebaiknya kamu lakukan?',
+        options: ['Membantu dan menyemangatinya', 'Membiarkannya saja', 'Menertawakannya'],
+        correctIndex: 0,
+        explanation: 'Dalam permainan estafet, kita harus saling membantu dan menyemangati teman satu kelompok.'
+      },
+      {
+        id: 13,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'soccer',
+        question: 'Dalam permainan bola tangan atau sepak bola, agar tim kompak kita harus ....',
+        options: ['Mengoper bola kepada teman satu tim', 'Membawa bola sendirian terus-menerus', 'Merebut bola dari teman satu tim'],
+        correctIndex: 0,
+        explanation: 'Mengoper bola kepada teman membuat kerja sama tim menjadi kompak dan mudah mencetak angka.'
+      },
+      {
+        id: 14,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Saat membagi kelompok bermain di sekolah, kita harus bermain dengan ....',
+        options: ['Semua teman tanpa membeda-bedakan', 'Teman yang dekat saja', 'Teman yang paling tinggi saja'],
+        correctIndex: 0,
+        explanation: 'Kita harus bermain bersama semua teman tanpa membeda-bedakan suku, agama, maupun kemampuan.'
+      },
+      {
+        id: 15,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Ketika teman satu kelompok memberikan pendapat saat berdiskusi strategi, sikap kita adalah ....',
+        options: ['Mendengarkan pendapatnya dengan baik', 'Memotong pembicaraannya', 'Tidak mau mendengarkan'],
+        correctIndex: 0,
+        explanation: 'Mendengarkan pendapat teman adalah bentuk saling menghargai dalam kerja sama kelompok.'
+      },
+      {
+        id: 16,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'relay',
+        question: 'Dalam permainan lompat tali bergantian, setiap murid harus ....',
+        options: ['Menunggu giliran bermain dengan tertib', 'Menyerobot antrean teman', 'Mendorong teman yang sedang melompat'],
+        correctIndex: 0,
+        explanation: 'Menunggu giliran dengan tertib membuat permainan berjalan lancar dan semua teman kebagian bermain.'
+      },
+      {
+        id: 17,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Manfaat bekerja sama dalam permainan kelompok adalah pekerjaan menjadi ....',
+        options: ['Lebih ringan dan menyenangkan', 'Lebih berat dan lama', 'Membosankan'],
+        correctIndex: 0,
+        explanation: 'Dengan bekerja sama, tugas yang berat terasa ringan dan permainan menjadi sangat seru.'
+      },
+      {
+        id: 18,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'soccer',
+        question: 'Setelah pelajaran PJOK selesai, bola dan kerucut latihan sebaiknya ....',
+        options: ['Dirapikan bersama-sama ke tempatnya', 'Ditinggalkan di tengah lapangan', 'Disuruh guru saja yang merapikan'],
+        correctIndex: 0,
+        explanation: 'Merapikan alat olahraga bersama-sama melatih tanggung jawab dan kekompakan.'
+      },
+      {
+        id: 19,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'relay',
+        question: 'Agar kelompok estafet tidak menjatuhkan tongkat saat berlari, anggota tim harus ....',
+        options: ['Kompak dan fokus saat mengoper tongkat', 'Berlari sambil bercanda', 'Saling menyalahkan'],
+        correctIndex: 0,
+        explanation: 'Kekompakan dan konsentrasi saat mengoper tongkat membuat lomba estafet berhasil.'
+      },
+      {
+        id: 20,
+        type: 'Pilihan Ganda',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Kalimat yang baik untuk menyemangati teman satu kelompok adalah ....',
+        options: ['"Ayo teman-teman, kita pasti bisa!"', '"Kamu lambat sekali!"', '"Aku saja yang main sendiri!"'],
+        correctIndex: 0,
+        explanation: 'Kata-kata semangat membuat teman lebih percaya diri dan kelompok semakin kompak.'
+      },
+
+      // --- 5 SOAL BENAR ATAU SALAH ---
+      {
+        id: 21,
+        type: 'Benar atau Salah',
+        category: 'Fair Play (Sportif)',
+        illustration: 'whistle',
+        question: 'Pernyataan: "Mendorong teman agar kita bisa menang lebih dulu adalah sikap yang sportif."',
+        options: ['Benar', 'Salah'],
+        correctIndex: 1,
+        explanation: 'Pernyataan itu SALAH. Mendorong teman berbahaya dan tidak sportif. Kita harus bermain jujur dan aman.'
+      },
+      {
+        id: 22,
+        type: 'Benar atau Salah',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Pernyataan: "Berbagi tugas dalam kelompok membuat permainan selesai bersama-sama dengan baik."',
+        options: ['Benar', 'Salah'],
+        correctIndex: 0,
+        explanation: 'Pernyataan itu BENAR! Berbagi tugas membuat setiap anggota bekerja sama dan menyelesaikan permainan bersama.'
+      },
+      {
+        id: 23,
+        type: 'Benar atau Salah',
+        category: 'Fair Play (Sportif)',
+        illustration: 'handshake',
+        question: 'Pernyataan: "Jika tim kita kalah, kita boleh marah dan tidak mau bersalaman dengan lawan."',
+        options: ['Benar', 'Salah'],
+        correctIndex: 1,
+        explanation: 'Pernyataan itu SALAH. Saat kalah kita harus tetap sabar, menerima kekalahan, dan bersalaman dengan sportif.'
+      },
+      {
+        id: 24,
+        type: 'Benar atau Salah',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'soccer',
+        question: 'Pernyataan: "Mengoper bola kepada teman yang posisinya lebih dekat ke gawang adalah contoh kerja sama."',
+        options: ['Benar', 'Salah'],
+        correctIndex: 0,
+        explanation: 'Pernyataan itu BENAR! Mengoper bola kepada teman yang posisinya bagus menunjukkan kekompakan tim.'
+      },
+      {
+        id: 25,
+        type: 'Benar atau Salah',
+        category: 'Fair Play (Sportif)',
+        illustration: 'safety',
+        question: 'Pernyataan: "Mematuhi aturan permainan membantu menjaga keselamatan diri sendiri dan teman."',
+        options: ['Benar', 'Salah'],
+        correctIndex: 0,
+        explanation: 'Pernyataan itu BENAR! Aturan dibuat agar semua pemain aman, tertib, dan terhindar dari cedera.'
+      },
+
+      // --- 5 SOAL SITUASI / CERITA SEDERHANA ---
+      {
+        id: 26,
+        type: 'Soal Cerita Situasi',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'soccer',
+        question: 'Dina tidak sengaja menjatuhkan bola saat bermain estafet bola. Apa yang sebaiknya dilakukan teman-temannya?',
+        options: ['Membantu Dina mengambil bola dan menyemangati', 'Mengejek Dina di depan kelas', 'Meninggalkan Dina sendirian'],
+        correctIndex: 0,
+        explanation: 'Saat teman melakukan kesalahan tanpa sengaja, kita harus membantu dan menyemangatinya agar tetap percaya diri.'
+      },
+      {
+        id: 27,
+        type: 'Soal Cerita Situasi',
+        category: 'Fair Play (Sportif)',
+        illustration: 'safety',
+        question: 'Rafi berlari kencang lalu tidak sengaja menyenggol kaki Andi hingga Andi terjatuh. Apa yang harus dilakukan Rafi?',
+        options: ['Berhenti berlari, meminta maaf, dan menolong Andi', 'Terus berlari mengejar garis finis', 'Menertawakan Andi yang jatuh'],
+        correctIndex: 0,
+        explanation: 'Keselamatan teman lebih utama daripada kemenangan. Rafi harus berhenti, meminta maaf, dan menolong Andi.'
+      },
+      {
+        id: 28,
+        type: 'Soal Cerita Situasi',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'team',
+        question: 'Siti murid baru di kelas 2. Saat jam pelajaran PJOK, Siti belum punya kelompok bermain. Sikap kita adalah ....',
+        options: ['Mengajak Siti bergabung ke kelompok kita', 'Membiarkan Siti duduk sendirian', 'Menyuruh Siti bermain di kelas saja'],
+        correctIndex: 0,
+        explanation: 'Mengajak teman baru bermain bersama tanpa membeda-bedakan adalah sikap terpuji dan kompak.'
+      },
+      {
+        id: 29,
+        type: 'Soal Cerita Situasi',
+        category: 'Fair Play (Sportif)',
+        illustration: 'whistle',
+        question: 'Dalam lomba lari karung, Bima melompat sebelum peluit ditiup guru. Agar bermain sportif, Bima sebaiknya ....',
+        options: ['Kembali ke garis start dan menunggu peluit', 'Terus melompat sampai garis finis', 'Marah ketika diingatkan guru'],
+        correctIndex: 0,
+        explanation: 'Memulai lomba sebelum aba-aba adalah pelanggaran aturan. Pemain sportif segera kembali ke garis start.'
+      },
+      {
+        id: 30,
+        type: 'Soal Cerita Situasi',
+        category: 'Kolaborasi (Kerja Sama)',
+        illustration: 'relay',
+        question: 'Kelompok Melati mendapat tugas memindahkan 10 bola ke keranjang secara estafet. Agar cepat selesai, mereka sebaiknya ....',
+        options: ['Berbaris rapi dan saling mengoper bola secara berurutan', 'Berebut mengambil bola bersamaan', 'Hanya satu anak yang disuruh memindahkan semua bola'],
+        correctIndex: 0,
+        explanation: 'Dengan berbaris rapi dan saling mengoper secara berurutan, kerja sama berjalan kompak dan cepat selesai.'
+      }
+    ];
+
+    /* ==========================================================================
+       4. STATE PERMAINAN & UTILITAS PENGACAKAN
+       ========================================================================== */
+    const state = {
+      studentName: '',
+      studentClass: '',
+      studentSchool: '',
+      questions: [],
+      currentIndex: 0,
+      scorePoints: 0,
+      correctCount: 0,
+      wrongCount: 0,
+      answered: false,
+      startTime: null,
+      endTime: null
+    };
+
+    const MOTIVATIONS_CORRECT = [
+      'Luar biasa! Kamu anak yang sportif dan hebat! 🌟',
+      'Keren sekali! Terus pertahankan sikap kompak dan jujurmu! 🏆',
+      'Mantap! Pemahamanmu tentang PJOK sangat bagus! 👏',
+      'Hebat! Kamu calon Juara Sportif kelas 2 SD! 🥇'
+    ];
+
+    const MOTIVATIONS_WRONG = [
+      'Tidak apa-apa, salah itu bagian dari belajar. Tetap semangat ya! 💪',
+      'Yuk kita ingat penjelasannya bersama, soal berikutnya pasti bisa! 😊',
+      'Bagus sudah berani mencoba! Terus semangat berlatih ya! 🌈'
+    ];
+
+    function shuffleArray(arr) {
+      const copy = [...arr];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function prepareRandomizedQuestions() {
+      // Acak urutan 30 soal
+      const shuffledQuestions = shuffleArray(QUESTION_BANK);
+
+      // Acak urutan pilihan jawaban tanpa mengubah kunci jawaban
+      return shuffledQuestions.map(q => {
+        if (q.type === 'Benar atau Salah') {
+          // Untuk Benar/Salah tetap pertahankan urutan Benar lalu Salah agar intuitif bagi anak kelas 2 SD
+          return {
+            ...q,
+            shuffledOptions: q.options.map((text, idx) => ({
+              text,
+              isCorrect: idx === q.correctIndex
+            }))
+          };
+        }
+        const mappedOptions = q.options.map((text, idx) => ({
+          text,
+          isCorrect: idx === q.correctIndex
+        }));
+        return {
+          ...q,
+          shuffledOptions: shuffleArray(mappedOptions)
+        };
+      });
+    }
+
+    /* ==========================================================================
+       5. NAVIGASI ANTARLAYAR
+       ========================================================================== */
+    const screens = {
+      welcome: document.getElementById('screen-welcome'),
+      guide: document.getElementById('screen-guide'),
+      quiz: document.getElementById('screen-quiz'),
+      result: document.getElementById('screen-result')
+    };
+
+    function showScreen(name) {
+      SoundEngine.stopSpeech();
+      Object.values(screens).forEach(el => el.classList.add('hidden'));
+      screens[name].classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       6. EVENT LISTENER PEMBUKA, PETUNJUK & AUDIO
+       ========================================================================== */
+    const btnToggleMusic = document.getElementById('btn-toggle-music');
+    const btnToggleSfx = document.getElementById('btn-toggle-sfx');
+
+    btnToggleMusic.addEventListener('click', () => {
+      const isOn = SoundEngine.toggleMusic();
+      btnToggleMusic.textContent = isOn ? '🎵 Musik: ON' : '🎵 Musik: OFF';
+      btnToggleMusic.classList.toggle('off', !isOn);
+    });
+
+    btnToggleSfx.addEventListener('click', () => {
+      const isOn = SoundEngine.toggleSFX();
+      btnToggleSfx.textContent = isOn ? '🔊 Suara: ON' : '🔇 Suara: OFF';
+      btnToggleSfx.classList.toggle('off', !isOn);
+    });
+
+    document.getElementById('identity-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const nameVal = document.getElementById('input-name').value.trim();
+      const classVal = document.getElementById('input-class').value.trim();
+      const schoolVal = document.getElementById('input-school').value.trim();
+      const errBanner = document.getElementById('form-error');
+
+      if (!nameVal || !classVal || !schoolVal) {
+        errBanner.classList.remove('hidden');
+        return;
+      }
+      errBanner.classList.add('hidden');
+
+      state.studentName = nameVal;
+      state.studentClass = classVal;
+      state.studentSchool = schoolVal;
+
+      // Suara baru mulai diputar setelah murid menekan tombol mulai
+      SoundEngine.playClick();
+      SoundEngine.startBGM();
+      showScreen('guide');
+    });
+
+    document.getElementById('btn-back-welcome').addEventListener('click', () => {
+      SoundEngine.playClick();
+      showScreen('welcome');
+    });
+
+    document.getElementById('btn-start-quiz').addEventListener('click', () => {
+      SoundEngine.playClick();
+      startQuizSession();
+    });
+
+    /* ==========================================================================
+       7. LOGIKA KUIS INTERAKTIF
+       ========================================================================== */
+    function startQuizSession() {
+      state.questions = prepareRandomizedQuestions();
+      state.currentIndex = 0;
+      state.scorePoints = 0;
+      state.correctCount = 0;
+      state.wrongCount = 0;
+      state.answered = false;
+      state.startTime = Date.now();
+      state.endTime = null;
+
+      stopConfetti();
+      showScreen('quiz');
+      renderCurrentQuestion();
+    }
+
+    function renderCurrentQuestion() {
+      const q = state.questions[state.currentIndex];
+      const total = state.questions.length;
+      const num = state.currentIndex + 1;
+
+      state.answered = false;
+
+      // Update Header Kuis & Progress Bar
+      document.getElementById('quiz-counter').textContent = `Soal ${num} dari ${total}`;
+      document.getElementById('quiz-category').textContent = q.category;
+      document.getElementById('quiz-score').textContent = `⭐ Poin: ${state.scorePoints}`;
+
+      const progressPct = (num / total) * 100;
+      document.getElementById('quiz-progress-fill').style.width = `${progressPct}%`;
+
+      // Render Ilustrasi & Pertanyaan
+      document.getElementById('question-illustration').innerHTML = getIllustrationSVG(q.illustration);
+      document.getElementById('question-type-badge').textContent = q.type;
+      document.getElementById('question-text').textContent = q.question;
+
+      // Render Pilihan Jawaban
+      const optionsContainer = document.getElementById('options-container');
+      optionsContainer.innerHTML = '';
+      optionsContainer.classList.toggle('tf-mode', q.type === 'Benar atau Salah');
+
+      const letters = ['A', 'B', 'C', 'D'];
+      q.shuffledOptions.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+
+        const badge = q.type === 'Benar atau Salah' ? (opt.text === 'Benar' ? '✔️' : '✖️') : letters[idx];
+        btn.innerHTML = `
+          <span class="option-letter">${badge}</span>
+          <span>${opt.text}</span>
+        `;
+
+        btn.addEventListener('click', () => handleAnswerSelection(idx, btn));
+        optionsContainer.appendChild(btn);
+      });
+
+      // Sembunyikan panel pembahasan
+      const feedbackPanel = document.getElementById('feedback-panel');
+      feedbackPanel.classList.add('hidden');
+      feedbackPanel.classList.remove('is-correct', 'is-wrong');
+    }
+
+    // Fitur Text-to-Speech membacakan soal dan pilihan jawaban
+    document.getElementById('btn-read-aloud').addEventListener('click', () => {
+      SoundEngine.playClick();
+      const q = state.questions[state.currentIndex];
+      const letters = ['A', 'B', 'C'];
+      let speech = `Soal nomor ${state.currentIndex + 1}. ${q.question}. `;
+      if (q.type === 'Benar atau Salah') {
+        speech += 'Pilih Benar atau Salah.';
+      } else {
+        q.shuffledOptions.forEach((opt, i) => {
+          speech += `Pilihan ${letters[i]}: ${opt.text}. `;
+        });
+      }
+      SoundEngine.speakText(speech);
+    });
+
+    function handleAnswerSelection(selectedIndex, selectedBtn) {
+      if (state.answered) return; // Jawaban yang sudah dipilih tidak dapat diubah
+      state.answered = true;
+      SoundEngine.stopSpeech();
+
+      const q = state.questions[state.currentIndex];
+      const chosenOption = q.shuffledOptions[selectedIndex];
+      const allButtons = document.querySelectorAll('#options-container .option-btn');
+
+      // Kunci semua tombol pilihan & sorot jawaban benar
+      allButtons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (q.shuffledOptions[idx].isCorrect) {
+          btn.classList.add('correct');
+        }
+      });
+
+      const feedbackPanel = document.getElementById('feedback-panel');
+      const feedbackIcon = document.getElementById('feedback-icon');
+      const feedbackTitle = document.getElementById('feedback-title');
+      const feedbackExplanation = document.getElementById('feedback-explanation');
+      const feedbackMotivation = document.getElementById('feedback-motivation');
+      const btnNext = document.getElementById('btn-next-question');
+
+      const correctOptionObj = q.shuffledOptions.find(o => o.isCorrect);
+
+      if (chosenOption.isCorrect) {
+        state.correctCount++;
+        state.scorePoints += 10;
+        document.getElementById('quiz-score').textContent = `⭐ Poin: ${state.scorePoints}`;
+
+        SoundEngine.playCorrect();
+        triggerMiniStarBurst();
+
+        feedbackPanel.classList.add('is-correct');
+        feedbackIcon.textContent = '🏆';
+        feedbackTitle.textContent = 'HEBAT! JAWABANMU BENAR!';
+        feedbackExplanation.innerHTML = `<strong>Pembahasan:</strong> ${q.explanation}`;
+        feedbackMotivation.textContent = MOTIVATIONS_CORRECT[Math.floor(Math.random() * MOTIVATIONS_CORRECT.length)];
+      } else {
+        state.wrongCount++;
+        selectedBtn.classList.add('wrong');
+        SoundEngine.playWrong();
+
+        feedbackPanel.classList.add('is-wrong');
+        feedbackIcon.textContent = '🌟';
+        feedbackTitle.textContent = 'YUK, BELAJAR LAGI!';
+        feedbackExplanation.innerHTML = `
+          <strong>Jawaban yang benar:</strong> ${correctOptionObj.text}<br/>
+          <strong>Penjelasan:</strong> ${q.explanation}
+        `;
+        feedbackMotivation.textContent = MOTIVATIONS_WRONG[Math.floor(Math.random() * MOTIVATIONS_WRONG.length)];
+      }
+
+      btnNext.textContent = (state.currentIndex === state.questions.length - 1)
+        ? 'LIHAT HASIL AKHIR 🏆'
+        : 'LANJUT ➡️';
+
+      feedbackPanel.classList.remove('hidden');
+      feedbackPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    document.getElementById('btn-next-question').addEventListener('click', () => {
+      SoundEngine.playClick();
+      if (state.currentIndex < state.questions.length - 1) {
+        state.currentIndex++;
+        renderCurrentQuestion();
+      } else {
+        finishQuiz();
+      }
+    });
+
+    /* ==========================================================================
+       8. PERHITUNGAN HASIL AKHIR & PENGISIAN SERTIFIKAT OTOMATIS
+       ========================================================================== */
+    function getPredikat(nilai) {
+      if (nilai >= 90) return 'JUARA SPORTIF!';
+      if (nilai >= 80) return 'HEBAT SEKALI!';
+      if (nilai >= 70) return 'BAGUS!';
+      if (nilai >= 60) return 'TETAP SEMANGAT!';
+      return 'AYO BERLATIH LAGI!';
+    }
+
+    function formatDuration(ms) {
+      const totalSeconds = Math.max(1, Math.floor(ms / 1000));
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${minutes}m ${seconds}d`;
+    }
+
+    function formatIndonesianDate(dateObj) {
+      const months = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+      return `${dateObj.getDate()} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+    }
+
+    function finishQuiz() {
+      state.endTime = Date.now();
+      const totalQuestions = state.questions.length;
+
+      // Rumus akurat: (Jumlah jawaban benar / 30) * 100
+      const rawScore = (state.correctCount / totalQuestions) * 100;
+      const finalScore = Math.round(rawScore);
+      const predikat = getPredikat(finalScore);
+      const durationStr = formatDuration(state.endTime - state.startTime);
+      const todayStr = formatIndonesianDate(new Date());
+
+      // Isi Ringkasan Hasil
+      document.getElementById('result-predikat').textContent = predikat;
+      document.getElementById('result-student-info').textContent =
+        `🧒 ${state.studentName}  |  🏫 Kelas ${state.studentClass}  |  🎒 ${state.studentSchool}`;
+
+      document.getElementById('stat-final-score').textContent = finalScore;
+      document.getElementById('stat-correct').textContent = state.correctCount;
+      document.getElementById('stat-wrong').textContent = state.wrongCount;
+      document.getElementById('stat-percentage').textContent = `${finalScore}%`;
+      document.getElementById('stat-duration').textContent = durationStr;
+      document.getElementById('stat-points').textContent = state.scorePoints;
+
+      // Isi Sertifikat Penghargaan Otomatis
+      document.getElementById('cert-name').textContent = state.studentName.toUpperCase();
+      document.getElementById('cert-school-class').textContent =
+        `Kelas ${state.studentClass} — ${state.studentSchool}`;
+      document.getElementById('cert-score').textContent = finalScore;
+      document.getElementById('cert-predikat').textContent = predikat;
+      document.getElementById('cert-date').textContent = todayStr;
+
+      showScreen('result');
+      SoundEngine.playVictory();
+      startConfetti();
+    }
+
+    // Tombol Ulangi & Kembali ke Halaman Utama
+    document.getElementById('btn-replay').addEventListener('click', () => {
+      SoundEngine.playClick();
+      startQuizSession();
+    });
+
+    document.getElementById('btn-home').addEventListener('click', () => {
+      SoundEngine.playClick();
+      stopConfetti();
+      showScreen('welcome');
+    });
+
+    // Tombol Cetak Sertifikat & Download PDF (via Dialog Print Browser yang bersih)
+    document.getElementById('btn-print-cert').addEventListener('click', () => {
+      SoundEngine.playClick();
+      window.print();
+    });
+
+    document.getElementById('btn-download-pdf').addEventListener('click', () => {
+      SoundEngine.playClick();
+      const prevTitle = document.title;
+      document.title = `Sertifikat_Juara_Sportif_${state.studentName.replace(/\s+/g, '_')}`;
+      window.print();
+      setTimeout(() => {
+        document.title = prevTitle;
+      }, 1000);
+    });
+
+    /* ==========================================================================
+       9. ANIMASI KANVAS KONFETI & BINTANG PERAYAAN
+       ========================================================================== */
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx2d = canvas.getContext('2d');
+    let confettiParticles = [];
+    let confettiAnimId = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    function createParticles(count, burstMode = false) {
+      const colors = ['#facc15', '#38bdf8', '#4ade80', '#fb923c', '#a855f7', '#f43f5e'];
+      const list = [];
+      for (let i = 0; i < count; i++) {
+        list.push({
+          x: burstMode ? canvas.width / 2 : Math.random() * canvas.width,
+          y: burstMode ? canvas.height / 2 : Math.random() * -canvas.height,
+          size: 7 + Math.random() * 8,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: burstMode ? (Math.random() - 0.5) * 14 : (Math.random() - 0.5) * 3,
+          vy: burstMode ? (Math.random() - 0.7) * 14 : 2.5 + Math.random() * 3.5,
+          angle: Math.random() * 360,
+          spin: (Math.random() - 0.5) * 10,
+          isStar: Math.random() > 0.55
+        });
+      }
+      return list;
+    }
+
+    function drawStarShape(cx, cy, spikes, outerR, innerR, color) {
+      let rot = (Math.PI / 2) * 3;
+      let step = Math.PI / spikes;
+      ctx2d.beginPath();
+      ctx2d.moveTo(cx, cy - outerR);
+      for (let i = 0; i < spikes; i++) {
+        ctx2d.lineTo(cx + Math.cos(rot) * outerR, cy + Math.sin(rot) * outerR);
+        rot += step;
+        ctx2d.lineTo(cx + Math.cos(rot) * innerR, cy + Math.sin(rot) * innerR);
+        rot += step;
+      }
+      ctx2d.closePath();
+      ctx2d.fillStyle = color;
+      ctx2d.fill();
+    }
+
+    function renderConfettiLoop() {
+      ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+      confettiParticles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.angle += p.spin;
+
+        ctx2d.save();
+        ctx2d.translate(p.x, p.y);
+        ctx2d.rotate((p.angle * Math.PI) / 180);
+
+        if (p.isStar) {
+          drawStarShape(0, 0, 5, p.size, p.size * 0.45, p.color);
+        } else {
+          ctx2d.fillStyle = p.color;
+          ctx2d.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.65);
+        }
+        ctx2d.restore();
+
+        if (p.y > canvas.height + 20) {
+          p.y = -15;
+          p.x = Math.random() * canvas.width;
+        }
+      });
+      confettiAnimId = requestAnimationFrame(renderConfettiLoop);
+    }
+
+    function startConfetti() {
+      stopConfetti();
+      confettiParticles = createParticles(110, false);
+      renderConfettiLoop();
+    }
+
+    function stopConfetti() {
+      if (confettiAnimId) {
+        cancelAnimationFrame(confettiAnimId);
+        confettiAnimId = null;
+      }
+      ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function triggerMiniStarBurst() {
+      const burst = createParticles(35, true);
+      let frames = 0;
+      function animateBurst() {
+        if (frames > 45) {
+          ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+          return;
+        }
+        ctx2d.clearRect(0, 0, canvas.width, canvas.height);
+        burst.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.35; // gravitasi ringan
+          drawStarShape(p.x, p.y, 5, p.size, p.size * 0.45, p.color);
+        });
+        frames++;
+        requestAnimationFrame(animateBurst);
+      }
+      animateBurst();
+    }
+  </script>
+</body>
+</html>
